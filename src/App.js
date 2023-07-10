@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import './App.css';
-//import About from './components/About';
+import About from './components/About';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
 import Alert from './components/Alert';
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
 function App() {
@@ -53,14 +53,33 @@ setTimeout(() => {
 }
 
   return (
+
    <>
+   <BrowserRouter>
+
    <Navbar title="TextUtils" aboutText='About' mode={mode} toggleTheme={toggleTheme} greenMode={greenMode} yellowMode={yellowMode}/>
    <Alert alertMsg={alertMsg}/>
-   <div className="container">
-   <TextForm heading="Enter the text to analyze" mode={mode} showAlert={showAlert}/>
-   {/*<About/>*/}
+
+   <div className="container my-4" mode={mode}>
+          <Routes>
+            <Route exact path="/about" element={<About />}></Route>
+            <Route
+              exact path="/"
+              element={
+                <TextForm
+                  showAlert={showAlert}
+                  heading="Enter Text to analyze "
+                  mode={mode}
+                />
+              }
+            ></Route>
+          </Routes>
+        </div>
+   </BrowserRouter>
+
    
-   </div>
+   
+  
    </>
   );
 }
